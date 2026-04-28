@@ -2,9 +2,13 @@
 
 Скрипт для извлечения векторных изображений из Figma документа.
 
+> Эта документация также [доступна на английском языке](README.md).
+
 ## Установка
 
 ```bash
+git clone https://github.com/dima117/figma2spine.git
+cd figma2spine
 npm install
 ```
 

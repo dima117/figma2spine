@@ -1,80 +1,84 @@
 # Figma to Spine2D
 
-Скрипт для извлечения векторных изображений из Figma документа.
+A script for extracting vector images from Figma documents.
 
-## Установка
+> This documentation is also [available in Russian](README_ru.md).
+
+## Installation
 
 ```bash
+git clone https://github.com/dima117/figma2spine.git
+cd figma2spine
 npm install
 ```
 
-## Настройка
+## Setup
 
-1. Получите Personal Access Token в Figma:
-   - Откройте Figma
-   - Перейдите в Settings → Account → Personal Access Tokens
-   - Создайте новый токен
+1. Get a Personal Access Token in Figma:
+   - Open Figma
+   - Go to Settings → Account → Personal Access Tokens
+   - Create a new token
 
-2. Установите переменную окружения:
+2. Set the environment variable:
    ```bash
    export FIGMA_TOKEN="<your_figma_personal_access_token_here>"
    ```
 
-## Использование
+## Usage
 
 ```bash
 npm run test <document-id> <frame-name-pattern> [scale]
 ```
 
-### Параметры:
+### Parameters:
 
-- `document-id` - ID документа Figma (можно найти в URL: figma.com/file/**document-id**/...)
-- `frame-name-pattern` - Регулярное выражение для поиска фрейма (например: "Character.*" или "MainFrame")
-- `scale` - (опционально) Коэффициент масштабирования при экспорте (по умолчанию: 0.5)
+- `document-id` - Figma document ID (can be found in URL: figma.com/file/**document-id**/...)
+- `frame-name-pattern` - Regular expression for finding the frame (e.g., "Character.*" or "MainFrame")
+- `scale` - (optional) Export scale factor (default: 0.5)
 
-### Примеры:
+### Examples:
 
 ```bash
-# Найти фрейм с именем "Martin" (масштаб по умолчанию 0.5)
+# Find frame named "Martin" (default scale 0.5)
 npm run test Km5kyQgY1WeEiZtXqHncue "Martin"
 
-# Найти фрейм, начинающийся с "Character" с масштабом 1.0
+# Find frame starting with "Character" with scale 1.0
 npm run test abc123def456 "Character.*" 1.0
 
-# Найти фрейм с точным именем и масштабом 2.0 (высокое разрешение)
+# Find frame with exact name and scale 2.0 (high resolution)
 npm run test abc123def456 "^MainFrame$" 2.0
 
-# Экспорт с масштабом 0.25 (низкое разрешение)
+# Export with scale 0.25 (low resolution)
 npm run test abc123def456 "Hero" 0.25
 ```
 
-## Что делает скрипт:
+## What the script does:
 
-1. Подключается к Figma API
-2. Получает структуру документа
-3. Ищет фрейм по заданному шаблону имени
-4. Находит все векторные объекты внутри фрейма (VECTOR, BOOLEAN_OPERATION, STAR, LINE, ELLIPSE, REGULAR_POLYGON)
-5. Экспортирует их в формате PNG с заданным масштабом (по умолчанию 0.5x)
-6. Сохраняет изображения в папку `dist/`
-7. Создает JSON файл для импорта в Spine2D с корректными позициями объектов
+1. Connects to Figma API
+2. Retrieves document structure
+3. Searches for a frame by the given name pattern
+4. Finds all vector objects inside the frame (VECTOR, BOOLEAN_OPERATION, STAR, LINE, ELLIPSE, REGULAR_POLYGON)
+5. Exports them in PNG format with the specified scale (default 0.5x)
+6. Saves images to the `dist/` folder
+7. Creates a JSON file for importing into Spine2D with correct object positions
 
-## Формат Spine2D:
+## Spine2D Format:
 
-Скрипт автоматически создает JSON файл, совместимый со Spine2D:
-- Создается корневая кость (root bone)
-- Для каждого изображения создается слот (slot)
-- Позиции объектов рассчитываются относительно центра фрейма
-- Размеры учитывают коэффициент масштабирования
-- Координатная система адаптирована под Spine2D (Y инвертирован)
+The script automatically creates a Spine2D-compatible JSON file:
+- Creates a root bone
+- Creates a slot for each image
+- Object positions are calculated relative to the frame center
+- Sizes account for the scale factor
+- Coordinate system is adapted for Spine2D (Y is inverted)
 
-После импорта JSON файла в Spine2D вы получите набор слотов с изображениями, расположенными так же, как в исходном фрейме Figma.
+After importing the JSON file into Spine2D, you'll get a set of slots with images positioned exactly as in the original Figma frame.
 
-## Типы векторных объектов:
+## Vector Object Types:
 
-Скрипт извлекает следующие типы объектов:
-- VECTOR - векторные пути
-- BOOLEAN_OPERATION - булевы операции
-- STAR - звезды
-- LINE - линии
-- ELLIPSE - эллипсы
-- REGULAR_POLYGON - правильные многоугольники
+The script extracts the following object types:
+- VECTOR - vector paths
+- BOOLEAN_OPERATION - boolean operations
+- STAR - stars
+- LINE - lines
+- ELLIPSE - ellipses
+- REGULAR_POLYGON - regular polygons
