@@ -4,6 +4,23 @@ A script for extracting vector images from Figma documents.
 
 > This documentation is also [available in Russian](README_ru.md).
 
+## Requirements
+
+This script requires **Node.js** (version 22 or higher) - a JavaScript runtime environment that allows you to run JavaScript code on your computer.
+
+### Installing Node.js:
+
+1. Visit the official Node.js website: [https://nodejs.org/](https://nodejs.org/)
+2. Download the installer for your operating system (Windows, macOS, or Linux)
+3. Run the installer and follow the installation wizard
+4. After installation, verify it worked by opening a terminal/command prompt and typing:
+   ```bash
+   node --version
+   ```
+   You should see a version number like `v22.x.x` or higher
+
+**Note:** If you see a version lower than 22, you'll need to update Node.js to a newer version.
+
 ## Installation
 
 ```bash
